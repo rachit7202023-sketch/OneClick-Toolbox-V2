@@ -1,36 +1,52 @@
-# [Project name]
+# OneClick — The Internet's Toolbox
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+31+ free client-side tools for text, code, design, math, and more — no sign-up required.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm run dev` — start dev server at port 3000
+- `pnpm run build` — production build → `dist/`
+- `pnpm run preview` — preview the production build locally
+- `pnpm run typecheck` — TypeScript check
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- React 19 + Vite 7 + TypeScript 5
+- Tailwind CSS v4 + shadcn/ui (New York style)
+- wouter (client-side routing)
+- framer-motion (animations)
+- lucide-react (icons)
+- All tools are 100% client-side — no backend
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `src/App.tsx` — routing (wouter)
+- `src/data/tools.ts` — tool definitions (title, slug, description, category)
+- `src/data/categories.ts` — category definitions with icons
+- `src/data/toolComponents.tsx` — lazy-load registry mapping slugs → components
+- `src/tools/<slug>/index.tsx` — individual tool implementations (31 tools)
+- `src/pages/` — Home, Tools, ToolPage, Categories, CategoryPage, About
+- `src/components/layout/` — Navbar, Footer
+- `src/components/ui/` — shadcn/ui primitives
+- `src/components/theme-provider.tsx` — dark mode (useTheme hook)
+- `src/index.css` — Tailwind + CSS custom properties (HSL color tokens)
+- `public/` — static assets (favicon.svg, opengraph.jpg, robots.txt)
+
+## Deploy on Vercel
+
+1. Push this repository to GitHub
+2. Import in Vercel — framework preset: **Vite**
+3. Build command: `npm run build` (or `pnpm run build`)
+4. Output directory: `dist`
+5. No environment variables required
+
+`vercel.json` already handles SPA routing (rewrites all paths to `index.html`).
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
-
-## Product
-
-_Describe the high-level user-facing capabilities of this app once they exist._
+- All 31 tools are lazy-loaded via `React.lazy()` — only the active tool's bundle is fetched
+- Dark mode uses a custom `ThemeProvider` + `useTheme` hook (not next-themes directly)
+- `@/` path alias maps to `src/` for clean imports throughout
 
 ## User preferences
 
@@ -38,8 +54,5 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Adding a new tool requires updates in three places: `src/data/tools.ts`, `src/data/toolComponents.tsx`, and a new file at `src/tools/<slug>/index.tsx`
+- `useTheme` must be imported from `@/components/theme-provider` (not any external package)
