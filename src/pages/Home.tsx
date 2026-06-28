@@ -22,8 +22,8 @@ const featuredSlugs = [
 
 const faqs = [
   {
-    q: "Is OneClick completely free?",
-    a: "Yes, all tools on OneClick are 100% free to use. No sign-up, no subscription, no hidden fees — ever."
+    q: "Is Atomest completely free?",
+    a: "Yes, all tools on Atomest are 100% free to use. No sign-up, no subscription, no hidden fees — ever."
   },
   {
     q: "Do I need to create an account?",
@@ -34,7 +34,7 @@ const faqs = [
     a: "Absolutely. All tools run entirely in your browser. Your data never leaves your device — no server uploads required."
   },
   {
-    q: "How many tools does OneClick have?",
+    q: "How many tools does Atomest have?",
     a: "We currently offer 31 fully functional tools across 22 categories, with new tools added regularly."
   },
   {
@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Do the tools work on mobile?",
-    a: "Yes. Every tool is mobile-first and responsive. OneClick works beautifully on any device or screen size."
+    a: "Yes. Every tool is mobile-first and responsive. Atomest works beautifully on any device or screen size."
   },
 ];
 
@@ -72,8 +72,7 @@ export default function Home() {
             <span className="text-primary">Toolbox</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Free online tools for students, developers, creators, designers,
-            businesses, and everyone.
+            Free online tools for developers, students, creators and everyone.
           </p>
           <div className="max-w-2xl mx-auto mb-8">
             <SearchBar />
@@ -160,11 +159,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why OneClick */}
+      {/* Why Atomest */}
       <section className="bg-muted/30 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight">Why OneClick?</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Why Atomest?</h2>
             <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
               Built for speed, privacy, and simplicity — the tools you need, right now.
             </p>

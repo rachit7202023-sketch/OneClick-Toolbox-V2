@@ -21,7 +21,7 @@ export default function CoinFlip() {
     setTimeout(() => {
       const newResult = Math.random() > 0.5 ? "Heads" : "Tails";
       setResult(newResult);
-      setHistory(prev => [newResult, ...prev].slice(0, 10)); // Keep last 10
+      setHistory(prev => [newResult, ...prev].slice(0, 10) as ("Heads" | "Tails")[]); // Keep last 10
       setIsFlipping(false);
     }, 1500);
   };

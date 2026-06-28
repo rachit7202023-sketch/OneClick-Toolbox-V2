@@ -18,7 +18,7 @@ export function Navbar() {
               <Hammer size={20} className="stroke-[2.5]" />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-lg tracking-tight">OneClick</span>
+              <span className="font-bold text-lg tracking-tight">Atomest</span>
               <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">The Internet's Toolbox</span>
             </div>
           </Link>

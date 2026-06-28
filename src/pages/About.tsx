@@ -15,7 +15,7 @@ export default function About() {
         {/* Hero */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            About OneClick
+            About Atomest
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             We believe useful tools should be available to everyone — free, fast, and without friction.
@@ -26,7 +26,7 @@ export default function About() {
         <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 md:p-10 mb-12">
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            OneClick is The Internet's Toolbox. We set out to build a place where anyone — students, developers, 
+            Atomest is The Internet's Toolbox. We set out to build a place where anyone — students, developers, 
             designers, business owners, or curious people — can instantly access powerful, everyday web utilities 
             without creating an account, paying a subscription, or giving up their data.
           </p>
@@ -54,7 +54,7 @@ export default function About() {
               {
                 icon: Globe,
                 title: "Free for Everyone",
-                desc: "Every tool on OneClick is and will always be free. No premium tiers, no ads disguised as features, no paywalls."
+                desc: "Every tool on Atomest is and will always be free. No premium tiers, no ads disguised as features, no paywalls."
               },
               {
                 icon: Shield,
@@ -87,7 +87,7 @@ export default function About() {
 
         {/* CTA */}
         <div className="text-center bg-muted/40 border border-border rounded-2xl p-10">
-          <h2 className="text-2xl font-bold mb-3">Start Using OneClick</h2>
+          <h2 className="text-2xl font-bold mb-3">Start Using Atomest</h2>
           <p className="text-muted-foreground mb-6">
             Explore our collection of {tools.length} free tools — no account needed.
           </p>

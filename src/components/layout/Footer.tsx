@@ -15,7 +15,7 @@ export function Footer() {
               <div className="bg-primary text-primary-foreground p-1.5 rounded-lg">
                 <Hammer size={20} className="stroke-[2.5]" />
               </div>
-              <span className="font-bold text-xl tracking-tight">OneClick</span>
+              <span className="font-bold text-xl tracking-tight">Atomest</span>
             </Link>
             <p className="text-muted-foreground text-sm mb-6 max-w-xs">
               The Internet's Toolbox. A free, fast, and secure collection of web utilities designed for everyone.
@@ -71,7 +71,7 @@ export function Footer() {
         
         <div className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} OneClick. All rights reserved.
+            &copy; {currentYear} Atomest. All rights reserved.
           </p>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             Made with <Heart className="h-4 w-4 text-red-500 fill-current" /> for the web

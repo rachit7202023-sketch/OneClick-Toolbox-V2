@@ -8,7 +8,7 @@ import QRCode from "qrcode";
 import { useTheme } from "@/components/theme-provider";
 
 export default function QrCodeGenerator() {
-  const [text, setText] = useState("https://oneclick.io");
+  const [text, setText] = useState("https://atomest.io");
   const [size, setSize] = useState([256]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
