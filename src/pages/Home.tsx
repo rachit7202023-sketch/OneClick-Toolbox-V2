@@ -77,28 +77,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Tools */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">Featured Tools</h2>
-            <p className="text-muted-foreground mt-2">The most popular tools our users love</p>
-          </div>
-          <Link href="/tools">
-            <Button variant="outline" className="gap-2 hidden sm:flex">
-              View All <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
+      {/* Popular Tools */}
+      <section className="container mx-auto px-4 py-20 md:py-28">
+        {/* Section heading */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
+            Popular Tools
+          </h2>
+          <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+            Discover the tools thousands of users rely on for everyday work.
+            Fast, accurate, and privacy-first.
+          </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredTools.map(tool => (
-            <ToolCard key={tool.id} tool={tool} />
+            <ToolCard
+              key={tool.id}
+              tool={tool}
+              popular={[
+                "password-generator",
+                "word-counter",
+                "json-formatter",
+                "qr-code-generator",
+              ].includes(tool.slug)}
+            />
           ))}
         </div>
-        <div className="text-center mt-8 sm:hidden">
+
+        {/* CTA */}
+        <div className="text-center mt-12">
           <Link href="/tools">
-            <Button variant="outline" className="gap-2">
-              View All Tools <ArrowRight className="h-4 w-4" />
+            <Button size="lg" className="gap-2 h-12 px-8 rounded-xl text-sm font-semibold">
+              Explore All Tools
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
