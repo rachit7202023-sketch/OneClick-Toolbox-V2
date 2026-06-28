@@ -17,7 +17,7 @@ export default function UrlShortener() {
     // Simulate API call
     setTimeout(() => {
       const randomString = Math.random().toString(36).substring(2, 8);
-      setShortUrl(`atomest.io/${randomString}`);
+      setShortUrl(`atomest.com/${randomString}`);
       setIsLoading(false);
     }, 800);
   };
