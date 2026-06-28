@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Search, Moon, Sun, Menu, X, Hammer } from "lucide-react";
+import { Search, Moon, Sun, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { useState } from "react";
@@ -14,9 +14,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-primary text-primary-foreground p-1.5 rounded-lg group-hover:scale-105 transition-transform">
-              <Hammer size={20} className="stroke-[2.5]" />
-            </div>
+            <img src="/logo.svg" width="36" height="36" alt="Atomest" className="rounded-xl group-hover:scale-105 transition-transform flex-shrink-0" />
             <div className="flex flex-col leading-none">
               <span className="font-bold text-lg tracking-tight">Atomest</span>
               <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">The Internet's Toolbox</span>

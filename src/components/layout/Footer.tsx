@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import { Hammer } from "lucide-react";
 import { categories } from "@/data/categories";
 
 export function Footer() {
@@ -12,9 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4 group inline-flex">
-              <div className="bg-primary text-primary-foreground p-1.5 rounded-lg">
-                <Hammer size={20} className="stroke-[2.5]" />
-              </div>
+              <img src="/logo.svg" width="36" height="36" alt="Atomest" className="rounded-xl flex-shrink-0" />
               <span className="font-bold text-xl tracking-tight">Atomest</span>
             </Link>
             <p className="text-muted-foreground text-sm mb-6 max-w-xs">

@@ -1,0 +1,102 @@
+We have finalized the Atomest logo concept and attached the approved reference image.
+
+**IMPORTANT:**
+This is NOT a logo redesign task.
+
+The attached image is the final approved concept. Your job is to recreate it as a production-quality vector logo while preserving its visual identity.
+
+## Goal
+
+Recreate the logo as a clean, mathematically precise, scalable vector suitable for a professional SaaS product.
+
+## Requirements
+
+### 1. Preserve the design
+
+Keep exactly the same visual identity:
+
+* Rounded square icon
+* Premium deep purple gradient background
+* Minimal geometric white/lavender "A"
+* Soft glossy highlight
+* Overall proportions and style
+
+Do NOT redesign the icon.
+
+Do NOT introduce new shapes or concepts.
+
+Do NOT add:
+
+* orbit rings
+* atom symbols
+* sparkles
+* shadows
+* strokes
+* extra gradients
+* glowing effects
+* 3D effects
+* additional decorative elements
+
+### 2. Improve production quality
+
+Without changing the design:
+
+* Perfect the symmetry.
+* Align everything mathematically.
+* Smooth all curves.
+* Ensure crisp vector paths.
+* Optimize the gradient.
+* Make the glossy highlight slightly more subtle and timeless.
+
+### 3. Optimize the spacing
+
+The current reference has slightly too much empty padding.
+
+Scale the "A" so the symbol occupies approximately **72–75% of the rounded square**, while maintaining visually balanced padding on all four sides.
+
+The icon must remain instantly recognizable at **16×16 pixels**.
+
+This is extremely important.
+
+### 4. Export assets
+
+Generate:
+
+* public/logo.svg
+* public/logo.png (1024×1024)
+* public/favicon.ico
+* public/favicon-16x16.png
+* public/favicon-32x32.png
+
+### 5. Integrate into the website
+
+Replace every existing branding asset with the new files.
+
+Update:
+
+* favicon references
+* logo references
+* navbar logo
+* footer logo
+* manifest icons (if applicable)
+
+Do not modify any other UI or functionality.
+
+### 6. Validation
+
+After implementation:
+
+* Verify the SVG contains true vector paths (not an embedded bitmap).
+* Verify the favicon is sharp at 16×16 and 32×32.
+* Verify the logo looks centered in browser tabs.
+* Run a production build.
+* Confirm there are zero build errors.
+
+### 7. Final report
+
+Provide:
+
+* Files created
+* Files modified
+* Screenshot/preview of the final SVG logo
+* Confirmation that all branding assets have been successfully replaced.
