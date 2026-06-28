@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { useSEO } from "@/hooks/useSEO";
 import NotFound from "@/pages/not-found";
 
 function ToolSkeleton() {
@@ -28,6 +29,13 @@ export default function ToolPage() {
   const { toast } = useToast();
 
   const tool = tools.find(t => t.slug === slug);
+
+  useSEO({
+    title: tool?.name ?? "",
+    description: tool?.metaDescription ?? "",
+    canonicalPath: `/tools/${slug}`,
+  });
+
   if (!tool) return <NotFound />;
 
   const ToolComponent = toolComponents[slug];
