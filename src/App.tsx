@@ -12,6 +12,7 @@ const Categories = lazy(() => import("@/pages/Categories"));
 const CategoryPage = lazy(() => import("@/pages/CategoryPage"));
 const About = lazy(() => import("@/pages/About"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const AtomestAI = lazy(() => import("@/pages/AtomestAI"));
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ function Router() {
         <Route path="/categories" component={Categories} />
         <Route path="/categories/:slug" component={CategoryPage} />
         <Route path="/about" component={About} />
+        <Route path="/ai" component={AtomestAI} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

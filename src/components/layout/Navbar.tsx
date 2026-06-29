@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Search, Moon, Sun, Menu } from "lucide-react";
+import { Search, Moon, Sun, Menu, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { useState } from "react";
@@ -25,6 +25,10 @@ export function Navbar() {
             <Link href="/tools" className="text-muted-foreground hover:text-foreground transition-colors">All Tools</Link>
             <Link href="/categories" className="text-muted-foreground hover:text-foreground transition-colors">Categories</Link>
             <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>
+            <Link href="/ai" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 font-semibold">Atomest AI</span>
+            </Link>
           </div>
         </div>
 
@@ -54,6 +58,10 @@ export function Navbar() {
                 <Link href="/tools" className="text-lg font-medium hover:text-primary transition-colors">All Tools</Link>
                 <Link href="/categories" className="text-lg font-medium hover:text-primary transition-colors">Categories</Link>
                 <Link href="/about" className="text-lg font-medium hover:text-primary transition-colors">About</Link>
+                <Link href="/ai" className="text-lg font-medium hover:text-primary transition-colors flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">Atomest AI</span>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>
