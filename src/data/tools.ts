@@ -9,6 +9,11 @@ export type Tool = {
   keywords: string[];
   icon: any;
   slug: string;
+  featured?: boolean;
+  popular?: boolean;
+  new?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
 };
 
 export const tools: Tool[] = [
@@ -321,5 +326,20 @@ export const tools: Tool[] = [
     keywords: ["url", "shortener", "link", "tiny", "minify"],
     icon: LinkIcon,
     slug: "url-shortener"
+  },
+  {
+    id: "32",
+    name: "AI Humanizer",
+    description: "Make AI-generated text sound natural, human, and perfectly tailored to your tone.",
+    metaDescription: "Make AI text sound human. Our AI Humanizer rewrites robotic AI text into natural, engaging content with adjustable tone and creativity settings.",
+    category: "ai",
+    keywords: ["ai", "humanizer", "rewrite", "text", "natural", "tone"],
+    icon: AlignLeft,
+    slug: "ai-humanizer",
+    new: true,
+    featured: true,
+    popular: true,
+    seoTitle: "AI Text Humanizer | Make AI Text Sound Natural",
+    seoDescription: "Transform robotic AI-generated text into natural, human-sounding content instantly. Customize tone, creativity, and preserve formatting."
   }
 ];

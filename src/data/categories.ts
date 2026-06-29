@@ -13,7 +13,7 @@ export type Category = {
 };
 
 export const categories: Category[] = [
-  { id: "ai", name: "AI Tools", icon: Wand2, description: "Artificial intelligence utilities", color: "text-purple-500", toolCount: 0 },
+  { id: "ai", name: "AI Tools", icon: Wand2, description: "Artificial intelligence utilities", color: "text-purple-500", toolCount: 1 },
   { id: "text", name: "Text Tools", icon: Type, description: "Format, convert, and manipulate text", color: "text-blue-500", toolCount: 9 },
   { id: "image", name: "Image Tools", icon: ImageIcon, description: "Compress, convert, and edit images", color: "text-pink-500", toolCount: 2 },
   { id: "video", name: "Video Tools", icon: Video, description: "Video processing and editing", color: "text-red-500", toolCount: 0 },
