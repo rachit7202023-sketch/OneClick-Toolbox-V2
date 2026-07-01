@@ -1,13 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Share2, Printer, Download, RefreshCw, Activity } from "lucide-react";
+import { Share2, Printer, Activity } from "lucide-react";
 import { BMIGauge } from "./components/BMIGauge";
-import { CaloriePlanner } from "./components/CaloriePlanner";
-import { Roadmap } from "./components/Roadmap";
+import { WeightGoalSimulator } from "./components/WeightGoalSimulator";
 import { HealthInsights } from "./components/HealthInsights";
 import { SEOContent } from "./components/SEOContent";
 import { 
@@ -17,12 +15,14 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 export default function BmiCalculator() {
-  const [isMetric, setIsMetric] = useState(true);
+  const [heightUnit, setHeightUnit] = useState<"cm" | "ft">("cm");
+  const [weightUnit, setWeightUnit] = useState<"kg" | "lbs">("kg");
+  
   const [gender, setGender] = useState<"male" | "female">("male");
   const [age, setAge] = useState<string>("30");
   const [activityLevel, setActivityLevel] = useState("sedentary");
   
-  // Base state is stored in Metric internally, but we expose local state for inputs to allow empty fields
+  // Local state for inputs to allow empty fields
   const [cm, setCm] = useState("175");
   const [kg, setKg] = useState("70");
   const [feet, setFeet] = useState("5");
@@ -33,24 +33,34 @@ export default function BmiCalculator() {
   const { toast } = useToast();
   const printRef = useRef<HTMLDivElement>(null);
 
-  // Handle unit toggling without losing data
-  const handleUnitToggle = (checked: boolean) => {
-    const newIsMetric = !checked;
-    setIsMetric(newIsMetric);
-    if (newIsMetric) {
-      // Converting Imperial to Metric
-      const totalInches = (parseFloat(feet || "0") * 12) + parseFloat(inches || "0");
-      setCm(totalInches > 0 ? (totalInches * 2.54).toFixed(1) : "");
-      setKg(lbs ? lbsToKg(parseFloat(lbs)).toFixed(1) : "");
-    } else {
-      // Converting Metric to Imperial
+  // Handlers for Unit Switches
+  const toggleHeightUnit = () => {
+    if (heightUnit === "cm") {
+      setHeightUnit("ft");
       if (cm) {
         const { feet: f, inches: i } = cmToFeetInches(parseFloat(cm));
         setFeet(f.toString());
         setInches(i.toString());
       }
+    } else {
+      setHeightUnit("cm");
+      const totalInches = (parseFloat(feet || "0") * 12) + parseFloat(inches || "0");
+      if (totalInches > 0) {
+        setCm((totalInches * 2.54).toFixed(1));
+      }
+    }
+  };
+
+  const toggleWeightUnit = () => {
+    if (weightUnit === "kg") {
+      setWeightUnit("lbs");
       if (kg) {
         setLbs(kgToLbs(parseFloat(kg)).toFixed(1));
+      }
+    } else {
+      setWeightUnit("kg");
+      if (lbs) {
+        setKg(lbsToKg(parseFloat(lbs)).toFixed(1));
       }
     }
   };
@@ -59,11 +69,15 @@ export default function BmiCalculator() {
     let weightKg = 0;
     let heightCm = 0;
     
-    if (isMetric) {
+    if (weightUnit === "kg") {
       weightKg = parseFloat(kg || "0");
-      heightCm = parseFloat(cm || "0");
     } else {
       weightKg = lbsToKg(parseFloat(lbs || "0"));
+    }
+
+    if (heightUnit === "cm") {
+      heightCm = parseFloat(cm || "0");
+    } else {
       heightCm = feetInchesToCm(parseFloat(feet || "0"), parseFloat(inches || "0"));
     }
 
@@ -72,10 +86,10 @@ export default function BmiCalculator() {
     } else {
       setBmi(0);
     }
-  }, [isMetric, cm, kg, feet, inches, lbs]);
+  }, [heightUnit, weightUnit, cm, kg, feet, inches, lbs]);
 
-  const heightCm = isMetric ? parseFloat(cm || "0") : feetInchesToCm(parseFloat(feet || "0"), parseFloat(inches || "0"));
-  const weightKg = isMetric ? parseFloat(kg || "0") : lbsToKg(parseFloat(lbs || "0"));
+  const heightCm = heightUnit === "cm" ? parseFloat(cm || "0") : feetInchesToCm(parseFloat(feet || "0"), parseFloat(inches || "0"));
+  const weightKg = weightUnit === "kg" ? parseFloat(kg || "0") : lbsToKg(parseFloat(lbs || "0"));
   
   const categoryData = bmi > 0 ? getBMICategory(bmi) : null;
   const idealRange = heightCm > 0 ? getIdealWeightRange(heightCm) : null;
@@ -87,7 +101,7 @@ export default function BmiCalculator() {
   const targetWeightKg = idealRange ? (weightKg > idealRange.max ? idealRange.max : weightKg < idealRange.min ? idealRange.min : weightKg) : weightKg;
   const diffKg = weightKg - targetWeightKg;
 
-  const displayWeight = (wKg: number) => isMetric ? `${wKg.toFixed(1)} kg` : `${kgToLbs(wKg).toFixed(1)} lbs`;
+  const displayWeight = (wKg: number) => weightUnit === "kg" ? `${wKg.toFixed(1)} kg` : `${kgToLbs(wKg).toFixed(1)} lbs`;
 
   const handlePrint = () => {
     window.print();
@@ -107,13 +121,8 @@ export default function BmiCalculator() {
         {/* Left Column: Inputs & Gauge */}
         <div className="space-y-6">
           <div className="bg-card border rounded-3xl p-6 sm:p-8 shadow-sm print:shadow-none print:border-none print:p-0">
-            <div className="flex items-center justify-between p-2 mb-8 bg-muted/50 rounded-xl border print:hidden">
-              <Label className="font-semibold cursor-pointer px-4 py-2 flex-1 text-center" onClick={() => handleUnitToggle(false)}>Metric</Label>
-              <Switch checked={!isMetric} onCheckedChange={handleUnitToggle} />
-              <Label className="font-semibold cursor-pointer px-4 py-2 flex-1 text-center" onClick={() => handleUnitToggle(true)}>Imperial</Label>
-            </div>
-
             <div className="space-y-6">
+              
               <div className="grid grid-cols-2 gap-4 print:hidden">
                 <div className="space-y-2">
                   <Label>Gender</Label>
@@ -132,8 +141,13 @@ export default function BmiCalculator() {
               </div>
 
               <div className="space-y-3">
-                <Label>Height</Label>
-                {isMetric ? (
+                <div className="flex justify-between items-center">
+                  <Label>Height</Label>
+                  <button onClick={toggleHeightUnit} className="text-xs font-semibold text-primary hover:underline print:hidden">
+                    Use {heightUnit === "cm" ? "ft/in" : "cm"}
+                  </button>
+                </div>
+                {heightUnit === "cm" ? (
                   <div className="relative">
                     <Input type="number" value={cm} onChange={(e) => setCm(e.target.value)} className="h-14 text-lg pl-4 pr-12 font-medium" />
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">cm</div>
@@ -153,8 +167,13 @@ export default function BmiCalculator() {
               </div>
 
               <div className="space-y-3">
-                <Label>Weight</Label>
-                {isMetric ? (
+                <div className="flex justify-between items-center">
+                  <Label>Weight</Label>
+                  <button onClick={toggleWeightUnit} className="text-xs font-semibold text-primary hover:underline print:hidden">
+                    Use {weightUnit === "kg" ? "lbs" : "kg"}
+                  </button>
+                </div>
+                {weightUnit === "kg" ? (
                   <div className="relative">
                     <Input type="number" value={kg} onChange={(e) => setKg(e.target.value)} className="h-14 text-lg pl-4 pr-12 font-medium" />
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">kg</div>
@@ -226,7 +245,7 @@ export default function BmiCalculator() {
                 <div className="text-xl font-black">{displayWeight(weightKg)}</div>
               </div>
               <div className="bg-card border rounded-2xl p-4 shadow-sm flex flex-col justify-center items-center text-center">
-                <div className="text-muted-foreground text-xs font-bold uppercase tracking-wider mb-1">Ideal</div>
+                <div className="text-muted-foreground text-xs font-bold uppercase tracking-wider mb-1">Target</div>
                 <div className="text-xl font-black text-emerald-500">{displayWeight(targetWeightKg)}</div>
               </div>
               <div className="bg-card border rounded-2xl p-4 shadow-sm flex flex-col justify-center items-center text-center">
@@ -243,22 +262,15 @@ export default function BmiCalculator() {
 
             <HealthInsights category={categoryData.category} />
 
-            {Math.abs(diffKg) >= 0.5 && (
-              <>
-                <Roadmap 
-                  currentWeight={weightKg} 
-                  targetWeight={targetWeightKg} 
-                  isMetric={isMetric}
-                  weeklyChangeKg={0.5}
-                />
-                <CaloriePlanner 
-                  currentWeightKg={weightKg} 
-                  targetWeightKg={targetWeightKg} 
-                  tdee={tdee}
-                  isMetric={isMetric}
-                />
-              </>
-            )}
+            <WeightGoalSimulator 
+              currentWeightKg={weightKg}
+              heightCm={heightCm}
+              bmi={bmi}
+              gender={gender}
+              tdee={tdee}
+              isWeightMetric={weightUnit === "kg"}
+              idealRange={idealRange}
+            />
 
           </div>
         )}

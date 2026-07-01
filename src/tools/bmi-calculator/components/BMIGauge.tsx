@@ -31,9 +31,9 @@ export function BMIGauge({ bmi }: BMIGaugeProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bmi]);
 
-  // BMI Gauge Scale: 12 to 42 (span = 30)
-  const minBmi = 12;
-  const maxBmi = 42;
+  // BMI Gauge Scale: 10 to 40 (span = 30)
+  const minBmi = 10;
+  const maxBmi = 40;
   const span = maxBmi - minBmi;
   
   // Calculate angle (0 to 180 degrees)
@@ -41,21 +41,25 @@ export function BMIGauge({ bmi }: BMIGaugeProps) {
   if (angle < 0) angle = 0;
   if (angle > 180) angle = 180;
 
-  // Categories for ticks and colors
+  // Categories for ticks and colors (linearly mapped)
   const categories = [
-    { name: "Under", min: 12, max: 18.5, color: "#3b82f6", icon: Info }, // blue
+    { name: "Under", min: 10, max: 18.5, color: "#3b82f6", icon: Info }, // blue
     { name: "Healthy", min: 18.5, max: 25, color: "#10b981", icon: CheckCircle2 }, // emerald
     { name: "Over", min: 25, max: 30, color: "#eab308", icon: Activity }, // yellow
     { name: "Obese I", min: 30, max: 35, color: "#f97316", icon: AlertTriangle }, // orange
-    { name: "Obese II+", min: 35, max: 42, color: "#ef4444", icon: AlertCircle }, // red
+    { name: "Obese II+", min: 35, max: 40, color: "#ef4444", icon: AlertCircle }, // red
   ];
 
-  const currentCategory = categories.find(c => bmi >= c.min && bmi < c.max) || (bmi >= 42 ? categories[4] : categories[0]);
+  const currentCategory = categories.find(c => bmi >= c.min && bmi < c.max) || (bmi >= 40 ? categories[4] : categories[0]);
   const Icon = currentCategory.icon;
 
   const createArc = (min: number, max: number, radius: number, strokeWidth: number) => {
-    const startAngle = ((min - minBmi) / span) * 180;
-    const endAngle = ((max - minBmi) / span) * 180;
+    // Clamp visual arcs to min/max
+    const clampedMin = Math.max(minBmi, min);
+    const clampedMax = Math.min(maxBmi, max);
+    
+    const startAngle = ((clampedMin - minBmi) / span) * 180;
+    const endAngle = ((clampedMax - minBmi) / span) * 180;
     
     const startRad = (startAngle * Math.PI) / 180;
     const endRad = (endAngle * Math.PI) / 180;
@@ -65,6 +69,7 @@ export function BMIGauge({ bmi }: BMIGaugeProps) {
     const x2 = 150 - radius * Math.cos(endRad);
     const y2 = 150 - radius * Math.sin(endRad);
     
+    // We add a tiny gap or just use standard arc. Since it's < 180 deg, large-arc flag is 0
     return `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}`;
   };
 
