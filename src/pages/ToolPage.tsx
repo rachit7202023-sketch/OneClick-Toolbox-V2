@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/seo/SEO";
 import { ToolContentLayout } from "@/components/seo/ToolContentLayout";
+import { ToolAnalyticsWrapper } from "@/components/seo/ToolAnalyticsWrapper";
 import NotFound from "@/pages/not-found";
 
 const CATEGORY_GRADIENTS: Record<string, [string, string]> = {
@@ -197,9 +198,11 @@ export default function ToolPage() {
           className="bg-card/80 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 md:p-10 mb-16 shadow-2xl depth-floating"
         >
           {ToolComponent ? (
-            <Suspense fallback={<ToolSkeleton />}>
-              <ToolComponent />
-            </Suspense>
+            <ToolAnalyticsWrapper toolName={tool.slug} category={tool.category}>
+              <Suspense fallback={<ToolSkeleton />}>
+                <ToolComponent />
+              </Suspense>
+            </ToolAnalyticsWrapper>
           ) : (
             <div className="text-center py-16 text-muted-foreground text-lg">
               Tool component not found.
